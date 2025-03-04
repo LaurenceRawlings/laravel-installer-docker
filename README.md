@@ -90,6 +90,8 @@ For all latest available command line parameters:
 
 Install Laravel in to an existing / cloned project:
 
+- Run in the root of the project
+
 ```bash
 docker run --rm \           
     -v "$(pwd)":/opt \
@@ -97,3 +99,24 @@ docker run --rm \
     laurencerawlings/laravel \
     install
 ```
+
+### Post scaffold / install
+
+After running new / install here are some useful commands to run:
+
+> [!NOTE]
+> The following commands require a bash alias for sail which can be added to your terminal profile for persistence:
+> 
+> `alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'`
+
+```bash
+cd my_project
+sudo chown -R $USER: .
+sail up -d
+sail artisan migrate
+sail npm install && sail npm run build
+sail npm run dev
+```
+
+- Optionally update the hosts file with: `127.0.0.1 my_project.test`
+- Visit http://my_project.test or http://localhost
