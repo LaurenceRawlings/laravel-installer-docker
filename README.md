@@ -119,4 +119,4 @@ sail npm run dev
 ```
 
 - Optionally update the hosts file with: `127.0.0.1 my_project.test`
-- Visit http://my_project.test or http://localhost
+- Visit [http://my_project.test](http://my_project.test) or [http://localhost](http://localhost)
