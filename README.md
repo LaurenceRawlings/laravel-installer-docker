@@ -51,9 +51,7 @@ Laravel new options:
 
 - `--dev`: Install the latest "development" release
 - `--git`: Initialize a Git repository
-- `--branch`: The branch that should be created for a new repository', $this->defaultBranch(
-- `--github`: Create a new repository on GitHub', fals
-- `--organization`: The GitHub organization to create the new repository for
+- `--branch`: The branch that should be created for a new repository
 - `--database`: The database driver your application will use
 - `--react`: Install the React Starter Kit
 - `--vue`: Install the Vue Starter Kit
