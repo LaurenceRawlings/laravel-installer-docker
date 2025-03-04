@@ -4,7 +4,7 @@ Docker image to scaffold / install Laravel projects without having Laravel insta
 
 This project makes use of:
 
-- The new [php.new](https://php.new/install/linux/8.4) script
+- [php.new](https://php.new)
 - [Laravel installer](https://laravel.com/docs/12.x#creating-an-application)
 - [Laravel Sail](https://laravel.com/docs/12.x/sail)
 
@@ -19,9 +19,9 @@ This project makes use of:
 
 ### New
 
-The new command works the same as the Laravel installer with the addition of the `--with=` option for adding Laravel Sail services.
+The new command works the same as the Laravel installer with the addition of the `--with=` option for adding Laravel Sail services (comma separated).
 
-Basic:
+Basic example:
 
 ```bash
 docker run --rm \           
@@ -31,7 +31,7 @@ docker run --rm \
     new my_project
 ```
 
-Scaffold a new Laravel project with:
+Example to scaffold a new Laravel project with:
 
 - Livewire Volt starter kit
 - Pest testing framework
@@ -47,10 +47,43 @@ docker run --rm \
     new my_project --git --database pgsql --livewire --livewire-class-components --pest --with=pgsql,mailpit
 ```
 
+Laravel new options:
+
+- `--dev`: Install the latest "development" release
+- `--git`: Initialize a Git repository
+- `--branch`: The branch that should be created for a new repository', $this->defaultBranch(
+- `--github`: Create a new repository on GitHub', fals
+- `--organization`: The GitHub organization to create the new repository for
+- `--database`: The database driver your application will use
+- `--react`: Install the React Starter Kit
+- `--vue`: Install the Vue Starter Kit
+- `--livewire`: Install the Livewire Starter Kit
+- `--livewire-class-components`: Generate stand-alone Livewire class components
+- `--workos`: Use WorkOS for authentication
+- `--pest`: Install the Pest testing framework
+- `--phpunit`: Install the PHPUnit testing framework
+- `--npm`: Install and build NPM dependencies
+- `--force`: Forces install even if the directory already exists
+
+Sail services `--with=`:
+- `mysql`
+- `pgsql`
+- `mariadb`
+- `mongodb`
+- `redis`
+- `valkey`
+- `memcached`
+- `meilisearch`
+- `typesense`
+- `minio`
+- `mailpit`
+- `selenium`
+- `soketi`
+
 > [!NOTE]
 > `--github` and `--organization` will not work due to the GitHub CLI not being installed in the image.
 
-For available command line parameters:
+For all latest available command line parameters:
 
 - [Laravel new options](https://github.com/laravel/installer/blob/master/src/NewCommand.php#L42)
 - [Laravel Sail services](https://github.com/laravel/sail/blob/1.x/src/Console/Concerns/InteractsWithDockerComposeServices.php#L15)
