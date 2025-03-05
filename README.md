@@ -17,100 +17,76 @@ This project makes use of:
 - [Docker Hub](https://hub.docker.com/r/laurencerawlings/laravel) `laurencerawlings/laravel:latest`
 - [GitHub Container Registry](https://github.com/LaurenceRawlings/laravel-docker-installer/pkgs/container/laravel) `ghcr.io/laurencerawlings/laravel:latest`
 
+The Docker image will give you access to the following binaries:
+
+- `php`
+- `composer`
+- `laravel`
+
 ### New
 
-The new command works the same as the Laravel installer with the addition of the `--with=` option for adding Laravel Sail services (comma separated).
+In the following examples replace `my_project` with a name of your choice (no spaces).
 
-Basic example:
+Interactive example:
+
+```bash
+NAME=my_project; docker run -it --rm \
+    --pull=always \
+    -v "$(pwd)":/opt \
+    laurencerawlings/laravel \
+    "laravel new $NAME && cd $NAME && php artisan sail:install"
+```
+
+Non-interactive example:
+
+```bash
+NAME=my_project; docker run --rm \
+    --pull=always \
+    -v "$(pwd)":/opt \
+    laurencerawlings/laravel \
+    "laravel new --no-interaction $NAME --database pgsql && cd $NAME && php artisan sail:install --with=pgsql,mailpit"
+```
+
+View available Laravel new options:
 
 ```bash
 docker run --rm \
     --pull=always \
-    -v "$(pwd)":/opt \
-    -w /opt \
     laurencerawlings/laravel \
-    new my_project
+    "laravel new --help"
 ```
-
-Example to scaffold a new Laravel project with:
-
-- Livewire Volt starter kit
-- Pest testing framework
-- Postgres database
-- Laravel Sail services added (postgres and mailpit)
-
-```bash
-docker run --rm \
-    --pull=always \
-    -v "$(pwd)":/opt \
-    -w /opt \
-    laurencerawlings/laravel \
-    new my_project --database pgsql --livewire --livewire-class-components --pest --with=pgsql,mailpit
-```
-
-Laravel new options:
-
-- `--dev`: Install the latest "development" release
-- `--database`: The database driver your application will use
-- `--react`: Install the React Starter Kit
-- `--vue`: Install the Vue Starter Kit
-- `--livewire`: Install the Livewire Starter Kit
-- `--livewire-class-components`: Generate stand-alone Livewire class components
-- `--workos`: Use WorkOS for authentication
-- `--pest`: Install the Pest testing framework
-- `--phpunit`: Install the PHPUnit testing framework
-- `--npm`: Install and build NPM dependencies
-- `--force`: Forces install even if the directory already exists
-
-Sail services `--with=`:
-- `mysql`
-- `pgsql`
-- `mariadb`
-- `mongodb`
-- `redis`
-- `valkey`
-- `memcached`
-- `meilisearch`
-- `typesense`
-- `minio`
-- `mailpit`
-- `selenium`
-- `soketi`
 
 > [!NOTE]
-> `--git`, `--branch`, `--github` and `--organization` will not work due to git and the GitHub CLI not being installed in the image.
+> Laravel new `--git`, `--branch`, `--github` and `--organization` options will not work due to git and the GitHub CLI not being installed in the image.
 
-For all latest available command line parameters:
-
-- [Laravel new options](https://github.com/laravel/installer/blob/master/src/NewCommand.php#L42)
-- [Laravel Sail services](https://github.com/laravel/sail/blob/1.x/src/Console/Concerns/InteractsWithDockerComposeServices.php#L15)
+To view current available Sail services view [this GitHub file](https://github.com/laravel/sail/blob/1.x/src/Console/Concerns/InteractsWithDockerComposeServices.php#L15), or run in interactive mode.
 
 ### Install
 
 Install Laravel in to an existing / cloned project:
 
-- Run in the root of the project
+- *Run in the root of the project*
 
 ```bash
 docker run --rm \
     --pull=always \
     -v "$(pwd)":/opt \
-    -w /opt \
     laurencerawlings/laravel \
-    install
+    "composer install --ignore-platform-reqs && cp .env.example .env && php artisan key:generate"
 ```
 
 ### Post scaffold / install
-
-After running new / install here are some useful commands to run:
 
 > [!NOTE]
 > The following commands require a bash alias for sail which can be added to your terminal profile for persistence:
 > 
 > `alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'`
 
+After running new / install here are some useful commands to run:
+
+- *Run in the root of the project*
+
 ```bash
-cd my_project
 sudo chown -R $USER: .
 sail up -d
 sail artisan migrate
@@ -118,5 +94,7 @@ sail npm install && sail npm run build
 sail npm run dev
 ```
 
-- Optionally update the hosts file with: `127.0.0.1 my_project.test`
+- *Replace `my_project` with your projects name (no spaces)*
+- Optionally update the hosts file with: `127.0.0.1    my_project.test`
 - Visit [http://my_project.test](http://my_project.test) or [http://localhost](http://localhost)
+
