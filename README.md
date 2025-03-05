@@ -98,3 +98,44 @@ sail npm run dev
 - Optionally update the hosts file with: `127.0.0.1    my_project.test`
 - Visit [http://my_project.test](http://my_project.test) or [http://localhost](http://localhost)
 
+## Bonus
+
+Add these shortcuts to you `.bashrc` / `.zshrc` or equivalent:
+
+```bash
+# Interactive Laravel install
+function laravel_new() {
+    docker run -it --rm \
+        --pull=always \
+        -v "$(pwd)":/opt \
+        laurencerawlings/laravel \
+        "laravel new $1 && cd $1 && php artisan sail:install"
+}
+
+# Composer dependency install
+function laravel_install() {
+    docker run --rm \
+        --pull=always \
+        -v "$(pwd)":/opt \
+        laurencerawlings/laravel \
+        "composer install --ignore-platform-reqs && cp .env.example .env && php artisan key:generate"
+}
+
+# Non-interactive Laravel install with favourite defaults
+function laravel_new_default() {
+    docker run --rm \
+        --pull=always \
+        -v "$(pwd)":/opt \
+        laurencerawlings/laravel \
+        "laravel new --no-interaction $1 --database pgsql --livewire --livewire-class-components --pest && cd $1 && php artisan sail:install --with=pgsql,mailpit"
+}
+```
+
+Usage:
+
+```bash
+laravel_new my_project
+laravel_install
+laravel_new_default my_project
+```
+
