@@ -25,6 +25,7 @@ Basic example:
 
 ```bash
 docker run --rm \
+    --pull=always \
     -v "$(pwd)":/opt \
     -w /opt \
     laurencerawlings/laravel \
@@ -36,22 +37,20 @@ Example to scaffold a new Laravel project with:
 - Livewire Volt starter kit
 - Pest testing framework
 - Postgres database
-- Initialised git repository
 - Laravel Sail services added (postgres and mailpit)
 
 ```bash
 docker run --rm \
+    --pull=always \
     -v "$(pwd)":/opt \
     -w /opt \
     laurencerawlings/laravel \
-    new my_project --git --database pgsql --livewire --livewire-class-components --pest --with=pgsql,mailpit
+    new my_project --database pgsql --livewire --livewire-class-components --pest --with=pgsql,mailpit
 ```
 
 Laravel new options:
 
 - `--dev`: Install the latest "development" release
-- `--git`: Initialize a Git repository
-- `--branch`: The branch that should be created for a new repository
 - `--database`: The database driver your application will use
 - `--react`: Install the React Starter Kit
 - `--vue`: Install the Vue Starter Kit
@@ -79,7 +78,7 @@ Sail services `--with=`:
 - `soketi`
 
 > [!NOTE]
-> `--github` and `--organization` will not work due to the GitHub CLI not being installed in the image.
+> `--git`, `--branch`, `--github` and `--organization` will not work due to git and the GitHub CLI not being installed in the image.
 
 For all latest available command line parameters:
 
@@ -94,6 +93,7 @@ Install Laravel in to an existing / cloned project:
 
 ```bash
 docker run --rm \
+    --pull=always \
     -v "$(pwd)":/opt \
     -w /opt \
     laurencerawlings/laravel \

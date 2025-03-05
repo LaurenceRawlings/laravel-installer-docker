@@ -21,7 +21,7 @@ new() {
       --with=*)
         SAIL_SERVICES="$arg"
         ;;
-      --github|--organization)
+      --git|--branch|--github|--organization)
         # Skip these arguments
         ;;
       *)
@@ -58,9 +58,9 @@ COMMAND=$1
 if [ "$COMMAND" = "new" ]; then
   if [ "$#" -lt 2 ]; then
     echo "Usage: $0 new PROJECT_NAME [args]"
-    echo "Example: $0 new my_project --git --database pgsql --livewire --livewire-class-components --pest --npm --with=pgsql,mailpit"
+    echo "Example: $0 new my_project --database pgsql --livewire --livewire-class-components --pest --npm --with=pgsql,mailpit"
     echo ""
-    echo "Run $0 new --help for more options (note that GitHub related flags will not work)"
+    echo "Run $0 new --help for more options (note that git and GitHub related flags will not work)"
     echo "Go here to check available sail services: https://github.com/laravel/sail/blob/1.x/src/Console/Concerns/InteractsWithDockerComposeServices.php#L15"
     exit 1
   fi
