@@ -100,7 +100,7 @@ sail npm run dev
 
 ## Bonus
 
-Add these shortcuts to you `.bashrc` / `.zshrc` or equivalent:
+Add these shortcuts to you `.bashrc` / `.zshrc` or equivalent, change the function names to whatever you like:
 
 ```bash
 # Interactive Laravel install
@@ -110,6 +110,8 @@ function laravel_new() {
         -v "$(pwd)":/opt \
         laurencerawlings/laravel \
         "laravel new $1 && cd $1 && php artisan sail:install"
+    cd $1
+    sudo chown -R $USER: .
 }
 
 # Composer dependency install
@@ -119,7 +121,20 @@ function laravel_install() {
         -v "$(pwd)":/opt \
         laurencerawlings/laravel \
         "composer install --ignore-platform-reqs && cp .env.example .env && php artisan key:generate"
+    sudo chown -R $USER: .
 }
+
+# Non-interactive Laravel install
+function laravel_new_manual() {
+    docker run --rm \
+        --pull=always \
+        -v "$(pwd)":/opt \
+        laurencerawlings/laravel \
+        "laravel new --no-interaction $@"
+    cd $1
+    sudo chown -R $USER: .
+}
+
 
 # Non-interactive Laravel install with favourite defaults
 function laravel_new_default() {
@@ -128,6 +143,8 @@ function laravel_new_default() {
         -v "$(pwd)":/opt \
         laurencerawlings/laravel \
         "laravel new --no-interaction $1 --database pgsql --livewire --livewire-class-components --pest && cd $1 && php artisan sail:install --with=pgsql,mailpit"
+    cd $1
+    sudo chown -R $USER: .
 }
 ```
 
