@@ -24,7 +24,7 @@ The new command works the same as the Laravel installer with the addition of the
 Basic example:
 
 ```bash
-docker run --rm \           
+docker run --rm \
     -v "$(pwd)":/opt \
     -w /opt \
     laurencerawlings/laravel \
@@ -40,7 +40,7 @@ Example to scaffold a new Laravel project with:
 - Laravel Sail services added (postgres and mailpit)
 
 ```bash
-docker run --rm \           
+docker run --rm \
     -v "$(pwd)":/opt \
     -w /opt \
     laurencerawlings/laravel \
@@ -93,7 +93,7 @@ Install Laravel in to an existing / cloned project:
 - Run in the root of the project
 
 ```bash
-docker run --rm \           
+docker run --rm \
     -v "$(pwd)":/opt \
     -w /opt \
     laurencerawlings/laravel \
