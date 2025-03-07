@@ -156,3 +156,33 @@ laravel_install
 laravel_new_default my_project
 ```
 
+## VSCode Development
+
+Create mock `php` and `composer` binaries so VSCode extensions can find them:
+
+`/usr/local/bin/php`
+
+```bash
+docker compose exec laravel.test php $@
+```
+
+`/usr/local/bin/composer`
+
+```bash
+docker compose exec laravel.test composer $@
+```
+
+Make them executable:
+
+```bash
+sudo chmod +x /usr/local/bin/php
+sudo chmod +x /usr/local/bin/composer
+```
+
+Update VSCode settings:
+
+```json
+{
+    "php.validate.executablePath": "/usr/local/bin/php"
+}
+```
