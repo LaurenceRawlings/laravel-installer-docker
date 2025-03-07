@@ -163,13 +163,13 @@ Create mock `php` and `composer` binaries so VSCode extensions can find them:
 `/usr/local/bin/php`
 
 ```bash
-docker compose exec laravel.test php $@
+./vendor/bin/sail php $@
 ```
 
 `/usr/local/bin/composer`
 
 ```bash
-docker compose exec laravel.test composer $@
+./vendor/bin/sail composer $@
 ```
 
 Make them executable:
@@ -185,4 +185,10 @@ Update VSCode settings:
 {
     "php.validate.executablePath": "/usr/local/bin/php"
 }
+```
+
+Additionally, adding this line to your `.env` will speed up `sail` execution time a bit:
+
+```ini
+SAIL_SKIP_CHECKS=true
 ```
