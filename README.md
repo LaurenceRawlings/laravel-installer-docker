@@ -142,7 +142,7 @@ function laravel_new_default() {
         --pull=always \
         -v "$(pwd)":/opt \
         laurencerawlings/laravel \
-        "laravel new --no-interaction $1 --database pgsql --livewire --livewire-class-components --pest && cd $1 && php artisan sail:install --with=pgsql,mailpit"
+        "laravel new --no-interaction $1 --database pgsql --livewire --pest && cd $1 && php artisan sail:install --with=pgsql,mailpit"
     cd $1
     sudo chown -R $USER: .
 }
